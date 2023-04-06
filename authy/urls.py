@@ -9,7 +9,7 @@ urlpatterns = [
     path('logout/', logout_user, name='logout'),
     path('activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/',
          activate, name='activate'),
-    path('reset_password/', auth_views.PasswordResetView.as_view(template_name="ForgotPassword.html",
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name="login/forget-password.html",
                                                                  html_email_template_name='forgot_mail.html'),
          name="reset_password"),
 

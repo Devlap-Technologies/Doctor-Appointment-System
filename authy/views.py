@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -57,7 +57,7 @@ def signup(request):
         email.content_subtype = 'html'
         EmailThread(email).start()
         return render(request, 'email_sent.html')
-    return render(request, 'register.html')
+    return render(request, 'login/register.html')
 
 
 def activate(request, uidb64, token):
@@ -92,11 +92,11 @@ def login_view(request):
                         return redirect('/')
                 else:
                     msg = 'Your Email is not Verify Please Check Your Email First'
-                    return render(request, 'loginpage.html', {'msg': msg})
+                    return render(request, 'login/login.html', {'msg': msg})
             else:
                 msg = 'Username or Password Incorrect'
-                return render(request, 'loginpage.html', {'msg': msg})
-    return render(request, 'loginpage.html')
+                return render(request, 'login/login.html', {'msg': msg})
+    return render(request, 'login/login.html')
 
 
 @login_required()
