@@ -301,7 +301,7 @@
     float: left;
     vertical-align: middle;
     padding: 0;
-    color: #EFBB20;
+    color: #4920ef;
     margin-top: 0;
     margin-bottom: 0;
     margin-left: 0;
@@ -414,7 +414,8 @@
 }
 .menu-links .nav > li > a:hover {
     background-color: transparent;
-    color: #efbb20;
+    color:#223a66;
+
 }
 .menu-links .nav > li > a:active,
 .menu-links .nav > li > a:focus {
@@ -423,10 +424,10 @@
 .menu-links .nav > li.active > a,
 .menu-links .nav > li.current-menu-item > a {
     background-color: transparent;
-    color: #EFBB20;
+    color: #223a66;
 }
 .menu-links .nav > li:hover > a {
-    color: #EFBB20;
+    color: #223a66;
 }
 .menu-links .nav > li:hover > a:after {
     content: "";
