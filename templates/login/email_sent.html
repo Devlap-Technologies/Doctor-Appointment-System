@@ -1,0 +1,20 @@
+{% extends 'snipets/baselogin.html' %}
+{% load static %}
+
+{% block content %}
+<div class="account-form-inner">
+    <div class="account-container">
+        <div class="heading-bx left">
+            <h2 class="title-head">Email <span>Sent</span></h2>
+        </div>
+            <div class="row placeani">
+                <div class="col-lg-12">
+                     <h4 class="title-head">Please verify your email <span></span></h4>
+                </div>
+                <div class="col-lg-12">
+                    <span>Login Your Account <a href="{% url 'login' %}">Click here</a></span>
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock content %}

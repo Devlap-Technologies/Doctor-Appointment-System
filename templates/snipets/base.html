@@ -76,17 +76,15 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="{%url 'services' %}">Services</a></li>
-					<li class="nav-item"><a class="nav-link" href="{%url 'doctor' %}">Doctors</a></li>
 					<li class="nav-item"><a class="nav-link" href="{%url 'contact' %}">Contact Us</a></li>
 					
 					{% if user.is_authenticated %}
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="blog-sidebar.html" id="dropdown05" data-toggle="dropdown"
+						<a class="nav-link dropdown-toggle" href="/" id="dropdown05" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false">{{ user.username }} <i class="icofont-thin-down"></i></a>
 						<ul class="dropdown-menu" aria-labelledby="dropdown05">
-							<li><a class="dropdown-item" href="blog-sidebar.html">Dashboard</a></li>
-							<li><a class="dropdown-item" href="blog-single.html">Logout</a></li>
+							<li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
+							<li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
 						</ul>
 					</li>
 					{% else %}

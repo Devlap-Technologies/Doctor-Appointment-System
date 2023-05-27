@@ -1,0 +1,21 @@
+{% extends 'snipets/baselogin.html' %}
+{% load static %}
+
+{% block content %}
+<div class="account-form-inner">
+    <div class="account-container">
+        <div class="heading-bx left">
+            <h2 class="title-head">Email <span>Sent</span></h2>
+        </div>
+            <div class="row placeani">
+                <div class="col-lg-12">
+                     <p class="title-head">Your password has been set. You may go ahead and Login now with your new
+                         password.</p>
+                </div>
+                <div class="col-lg-12">
+                    <span>Login Your Account <a href="{% url 'login' %}">Click here</a></span>
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock content %}

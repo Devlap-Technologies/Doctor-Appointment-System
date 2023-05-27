@@ -20,6 +20,7 @@ class EmailThread(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self) -> None:
+        print('email send')
         self.emails.send(fail_silently=False)
 
 
@@ -39,12 +40,13 @@ def signup(request):
         user.is_active = False
         user.set_password(password)
         user.save()
-        user_profile = UserProfile(user=user, first_name=first_name, last_name=last_name, phone_number=phone_number,
-                                   country=country, zip_code=zip_code, role=role, profile_photo=profile_photo)
-        user_profile.save()
+        user_profile = UserProfile.objects.create(user=user, first_name=first_name, last_name=last_name,
+                                                  phone_number=phone_number, country=country, zip_code=zip_code,
+                                                  role=role, profile_photo=profile_photo)
         current_site = get_current_site(request)
+        print(current_site.domain)
         mail_subject = 'Activate your account.'
-        html_template = 'account_activation_mail.html'
+        html_template = 'login/account_activation_mail.html'
         message = render_to_string(html_template, {
             'user': user,
             'domain': current_site.domain,
@@ -56,7 +58,8 @@ def signup(request):
         )
         email.content_subtype = 'html'
         EmailThread(email).start()
-        return render(request, 'email_sent.html')
+        print(message, html_template)
+        return render(request, 'login/email_sent.html')
     return render(request, 'login/register.html')
 
 
@@ -80,16 +83,13 @@ def login_view(request):
         return redirect('home')
     else:
         if request.method == 'POST':
-            email = request.POST.get('email')
+            username = request.POST.get('username')
             password = request.POST.get('password')
-            user = auth.authenticate(email=email, password=password)
+            user = auth.authenticate(username=username, password=password)
             if user is not None:
                 if user.is_active:
                     auth.login(request, user)
-                    if user.profile.role == 'doctor':
-                        return redirect('/api/admin/')
-                    else:
-                        return redirect('/')
+                    return redirect('/')
                 else:
                     msg = 'Your Email is not Verify Please Check Your Email First'
                     return render(request, 'login/login.html', {'msg': msg})
