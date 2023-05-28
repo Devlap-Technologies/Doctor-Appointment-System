@@ -11,8 +11,11 @@ class UserProfile(models.Model):
     last_name = models.CharField(max_length=255, blank=True, null=True)
     profile_photo = models.ImageField(upload_to='profile_photo/', blank=True, null=True)
     phone_number = models.BigIntegerField(default=0, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    state = models.CharField(max_length=255, blank=True, null=True)
     country = models.CharField(max_length=255, blank=True, null=True)
     zip_code = models.CharField(max_length=255, blank=True, null=True)
+    department = models.CharField(max_length=255, blank=True, null=True)
     role = models.CharField(max_length=255,  choices=ROLE_STATUS, default='doctor')
 
     @property

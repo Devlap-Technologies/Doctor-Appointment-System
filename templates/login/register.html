@@ -52,6 +52,16 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>If you are doctor then select you department</label>
+                        <select name="department">
+                            <option>select department</option>
+                            <option value="cardiology">Cardiology</option>
+                            <option value="radiology">Radiology</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                         <select class="form-select" id="country" name="country">
@@ -314,8 +324,24 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <div class="input-group">
+                            <label>State</label>
+                            <input name="state" type="text" required="" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label>City</label>
+                            <input name="city" type="text" required="" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="input-group">
                             <label>zip code</label>
-                            <input name="zip_code" type="text" required="" class="form-control">
+                            <input name="zip_code" type="number" required="" class="form-control">
                         </div>
                     </div>
                 </div>

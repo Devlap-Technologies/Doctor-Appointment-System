@@ -33,18 +33,20 @@ def signup(request):
         last_name = request.POST.get('last_name')
         phone_number = request.POST.get('phone_number')
         country = request.POST.get('country')
+        state = request.POST.get('state')
+        city = request.POST.get('city')
         zip_code = request.POST.get('zip_code')
         role = request.POST.get('role')
         profile_photo = request.POST.get('profile_photo')
+        department = request.POST.get('department')
         user = User(username=username, email=email)
         user.is_active = False
         user.set_password(password)
         user.save()
-        user_profile = UserProfile.objects.create(user=user, first_name=first_name, last_name=last_name,
-                                                  phone_number=phone_number, country=country, zip_code=zip_code,
-                                                  role=role, profile_photo=profile_photo)
+        UserProfile.objects.create(user=user, first_name=first_name, last_name=last_name, phone_number=phone_number,
+                                   country=country, zip_code=zip_code, role=role, profile_photo=profile_photo,
+                                   department=department, state=state, city=city)
         current_site = get_current_site(request)
-        print(current_site.domain)
         mail_subject = 'Activate your account.'
         html_template = 'login/account_activation_mail.html'
         message = render_to_string(html_template, {
@@ -58,7 +60,6 @@ def signup(request):
         )
         email.content_subtype = 'html'
         EmailThread(email).start()
-        print(message, html_template)
         return render(request, 'login/email_sent.html')
     return render(request, 'login/register.html')
 
@@ -97,14 +98,6 @@ def login_view(request):
                 msg = 'Username or Password Incorrect'
                 return render(request, 'login/login.html', {'msg': msg})
     return render(request, 'login/login.html')
-
-
-@login_required()
-def profile_view(request):
-    user = request.user
-    user_data = UserProfile.objects.get(user=user)
-    context = {'user_data': user_data}
-    return render(request, 'app-profile.html', context)
 
 
 def logout_user(request):

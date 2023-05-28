@@ -131,18 +131,21 @@
                   <th>Disease</th>
                   <th>Status</th>
               </tr>
+                {% for appointment in appointment_data %}
               <tr>
-                <td>Alfreds Futterkiste</td>
-                <td>Maria Anders</td>
-                <td>Germany</td>
-                <td>Germany</td>
+                <td>{{ appointment.date }}</td>
+                <td>{{ appointment.time }}</td>
+                <td>{{ appointment.disease }}</td>
+                <td>{{ appointment.status }}</td>
               </tr>
+                {% endfor %}
             </table>
         </div>
         <div class="column" style="background-color: #dddddd">
           <h2 style="text-align: center; font-family: arial, sans-serif;">Make an Appointment</h2>
           <br>
           <form action="" method="POST">
+              {% csrf_token %}
             <div class="formbold-mb-5 formbold-pt-3">
                 <label class="formbold-form-label formbold-form-label-2">
                   Basic Detail's
@@ -152,9 +155,11 @@
                   <div class="formbold-mb-5 w-full">
                     <label for="name" class="formbold-form-label"> First Name </label>
                     <input
+                            required
                       type="text"
-                      name="name"
-                      id="name"
+                      name="f_name"
+                      id="f-name"
+                            value="{{ request.user.profile.first_name }}"
                       placeholder="First Name"
                       class="formbold-form-input"
                     />
@@ -164,9 +169,11 @@
                   <div class="formbold-mb-5">
                     <label for="name" class="formbold-form-label"> Last Name </label>
                     <input
+                            required
                       type="text"
-                      name="name"
+                      name="l_name"
                       id="name"
+                            value="{{ request.user.profile.last_name }}"
                       placeholder="Last Name"
                       class="formbold-form-input"
                     />
@@ -178,9 +185,11 @@
                   <div class="formbold-mb-5 w-full">
                     <label for="phone" class="formbold-form-label"> Phone Number </label>
                     <input
-                      type="text"
+                            required
+                      type="number"
                       name="phone"
                       id="phone"
+                             value="{{ request.user.profile.phone_number }}"
                       placeholder="Enter your phone number"
                       class="formbold-form-input"
                     />
@@ -190,9 +199,11 @@
                   <div class="formbold-mb-5">
                     <label for="email" class="formbold-form-label"> Email Address </label>
                     <input
+                            required
                       type="email"
                       name="email"
                       id="email"
+                            value="{{ request.user.email }}"
                       placeholder="Enter your email"
                       class="formbold-form-input"
                     />
@@ -207,23 +218,24 @@
                   <div class="flex flex-wrap formbold--mx-3">
                 <div class="w-full sm:w-half formbold-px-3">
                   <div class="formbold-mb-5 w-full">
-                    <label for="name" class="formbold-form-label"> Full Name </label>
+                    <label for="name" class="formbold-form-label"> Disease </label>
                     <input
+                            required
                       type="text"
-                      name="name"
+                      name="disease"
                       id="name"
-                      placeholder="Full Name"
+                      placeholder="enter your Disease"
                       class="formbold-form-input"
                     />
                   </div>
                 </div>
                 <div class="w-full sm:w-half formbold-px-3">
                   <div class="formbold-mb-5">
-                    <label for="name" class="formbold-form-label"> Doctor's </label>
-                      <select class="formbold-form-input" name="role">
-                        <option>select doctor</option>
-                        <option value="doctor">Doctor</option>
-                        <option value="patient">Patient</option>
+                    <label for="name" class="formbold-form-label"> Department </label>
+                      <select class="formbold-form-input" required name="department">
+                          <option value="">None</option>
+                          <option value="cardiology">Cardiology</option>
+                          <option value="radiology">Radiology</option>
                       </select>
                   </div>
                 </div>
@@ -233,6 +245,7 @@
                   <div class="formbold-mb-5 w-full">
                     <label for="date" class="formbold-form-label"> Date </label>
                     <input
+                            required
                       type="date"
                       name="date"
                       id="date"
@@ -244,6 +257,7 @@
                   <div class="formbold-mb-5">
                     <label for="time" class="formbold-form-label"> Time </label>
                     <input
+                            required
                       type="time"
                       name="time"
                       id="time"
@@ -256,20 +270,11 @@
                   <div class="w-full sm:w-half formbold-px-3">
                     <div class="formbold-mb-5">
                       <input
-                        type="text"
-                        name="area"
-                        id="area"
-                        placeholder="Enter area"
-                        class="formbold-form-input"
-                      />
-                    </div>
-                  </div>
-                  <div class="w-full sm:w-half formbold-px-3">
-                    <div class="formbold-mb-5">
-                      <input
+                              required
                         type="text"
                         name="city"
                         id="city"
+                              value="{{ request.user.profile.city }}"
                         placeholder="Enter city"
                         class="formbold-form-input"
                       />
@@ -278,9 +283,24 @@
                   <div class="w-full sm:w-half formbold-px-3">
                     <div class="formbold-mb-5">
                       <input
+                              required
+                        type="text"
+                        name="country"
+                        id="country"
+                              value="{{ request.user.profile.country }}"
+                        placeholder="Enter country"
+                        class="formbold-form-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5">
+                      <input
+                              required
                         type="text"
                         name="state"
                         id="state"
+                              value="{{ request.user.profile.state }}"
                         placeholder="Enter state"
                         class="formbold-form-input"
                       />
@@ -289,9 +309,11 @@
                   <div class="w-full sm:w-half formbold-px-3">
                     <div class="formbold-mb-5">
                       <input
-                        type="text"
-                        name="post-code"
+                              required
+                        type="number"
+                        name="post_code"
                         id="post-code"
+                              value="{{ request.user.profile.zip_code }}"
                         placeholder="Post Code"
                         class="formbold-form-input"
                       />

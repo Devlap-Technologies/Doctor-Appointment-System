@@ -80,21 +80,26 @@
           <th>Status</th>
           <th>Action</th>
       </tr>
+        {% for appointment in appointment_data %}
       <tr>
-        <td>Alfreds Futterkiste</td>
-        <td>Maria Anders</td>
-        <td>Germany</td>
-        <td>Germany</td>
-        <td>Germany</td>
-        <td>Germany</td>
+        <td>{{ appointment.date }}</td>
+        <td>{{ appointment.time }}</td>
+        <td>{{ appointment.f_name }}-{{ appointment.l_name }}</td>
+        <td>{{ appointment.phone_num }}</td>
+        <td>{{ appointment.disease }}</td>
+        <td>{{ appointment.status }}</td>
+          {% if appointment.status == 'Pending' %}
           <form method="post">
               {% csrf_token %}
             <td style="text-align: center">
-                <button type="submit" value="approved" class="btn">Approved</button>
-                <button type="submit" value="declined" class="dec-btn">Declined</button>
+                <input hidden name="obj_id" value="{{ appointment.pk }}">
+                <button type="submit" name="ac_btn" value="Approved" class="btn">Approved</button>
+                <button type="submit" name="ac_btn" value="Declined" class="dec-btn">Declined</button>
             </td>
           </form>
+        {% endif %}
       </tr>
+    {% endfor %}
     </table>
 
 {% endblock content %}
